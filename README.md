@@ -1,1 +1,1 @@
-# This is the task 13 of the QA course.
+# This is the first part of the task 13 of the QA course.
