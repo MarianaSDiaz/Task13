@@ -74,6 +74,62 @@ describe('complexOperation - Unit tests', () => {
         });
     });
 
-    
+    describe('intersectionBetweenArrays', () => {
+        it('test the params are arrays', () =>{
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(false);
+            expect(complexOperations.intersectionBetweenArrays('1', 2)).toBe('The params should be arrays');
+        });
+        it('test the arrays without matching elements', () =>{
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
+            expect(complexOperations.intersectionBetweenArrays(['1', '2'], ['white', 'blue'])).toBe('There are not matching elements');
+        });
+        it('test the arrays with matching elements', () =>{
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'arrayIntersection').mockReturnValue('3');
+            expect(complexOperations.intersectionBetweenArrays(['1', '2', '3'], ['white', 'blue', '3'])).toEqual('3');
+        });
+    });
 
+    describe('sortArrayOfObjectsByKey', () => {
+        it('test the first param is an array', () => {
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(false);
+            expect(complexOperations.sortArrayOfObjectsByKey(25, 'team')).toEqual('The first param should be an array');
+        });
+        it('test the first param is an array and the second a string', () => {
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'isString').mockReturnValue(false);
+            expect(complexOperations.sortArrayOfObjectsByKey([{team: 'Rosario Central'}, {team: 'Newells'}], 2)).toEqual('The second param should be an string');
+        });
+        it('test if all the elements has the team property', () => {
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'isString').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'arrayElementsAreObjectWithKey').mockReturnValue(false)
+            expect(complexOperations.sortArrayOfObjectsByKey([{team: 'Rosario Central'}, {team: 'Newells'}, {group: 'foo fighters'}], 'team')).toEqual('Some elements in the array does not have the team property');
+        });
+        it('test with valid array and key', () => {
+            const expectedArray = [{team: 'Rosario Central'}, {team: 'Newells'}, {team: 'Colon'}];
+
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'isString').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'arrayElementsAreObjectWithKey').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'sortArrayByKey').mockReturnValue(expectedArray);
+            expect(complexOperations.sortArrayOfObjectsByKey([], 'team')).toStrictEqual(expectedArray);
+        });
+    });
+
+    describe('numberOfOddAndEvenNumbers', () => {
+        it('test the param is an array', () => {
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(false);
+            expect(complexOperations.numberOfOddAndEvenNumbers(15)).toEqual('The param should be an array');
+        });
+        it('test the array have only numbers', () => {
+            expect(complexOperations.numberOfOddAndEvenNumbers([25, '48', 32])).toEqual('The array should have only numbers');
+        });
+        it('test with valid values', () => {
+            jest.spyOn(basicOperations, 'isArray').mockReturnValue(true);
+            jest.spyOn(basicOperations, 'getOddNumbersFromArray').mockReturnValue([1, 1, 1]);
+            jest.spyOn(basicOperations, 'getEvenNumbersFromArray').mockReturnValue([1, 1]);
+            expect(complexOperations.numberOfOddAndEvenNumbers([])).toEqual({'even': 2, 'odd': 3});;
+        });
+    });
 })

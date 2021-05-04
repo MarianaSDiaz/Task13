@@ -69,7 +69,7 @@ describe('complexOperation - Unit Tests', () => {
     it('third test for sortArrayOfObjectsByKey', () => {
       expect(complexOperations.sortArrayOfObjectsByKey([{team: 'Rosario Central'}, {team: 'Newells'}, {group: 'foo fighters'}], 'team')).toEqual('Some elements in the array does not have the team property');
     });
-    it('third test for sortArrayOfObjectsByKey', () => {
+    it('fourth test for sortArrayOfObjectsByKey', () => {
       expect(complexOperations.sortArrayOfObjectsByKey([{team: 'Rosario Central'}, {team: 'Newells'}], 'team')).toEqual([{"team": 'Newells'}, {"team": 'Rosario Central'}]);
     });
   });
